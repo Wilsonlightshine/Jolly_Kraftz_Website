@@ -65,6 +65,34 @@
 	<link rel="stylesheet" href="#" id="colors">
 
 </head>
+	<script>
+	const WHATSAPP_NUMBER = "919042589086";
+
+	function buildWhatsAppUrl(name, price) {
+		const message =
+			"Hi, I'm interested in ordering this product. Please share the details and proceed with my order.\n\n" +
+			"Product Name: " + name + "\n" +
+			"Price: " + price;
+		return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+	}
+
+	function updateBuyLink(btn) {
+		const card = btn.closest(".single-product");
+		const name = card.querySelector(".product-name").textContent.trim();
+		const price = card.querySelector(".price-value").textContent.trim();
+		btn.href = buildWhatsAppUrl(name, price);
+		btn.target = "_blank";
+		btn.rel = "noopener";
+	}
+
+	document.querySelectorAll(".buy-now-btn").forEach(updateBuyLink);
+
+	// கிளிக் பண்ணும்போது லிங்கை மறுபடி அப்டேட் பண்ணும் (விலை மாறினாலும் சரியா இருக்கும்)
+	document.addEventListener("click", function (e) {
+		const btn = e.target.closest(".buy-now-btn");
+		if (btn) updateBuyLink(btn);
+	});
+</script>
 
 <body class="js">
 
